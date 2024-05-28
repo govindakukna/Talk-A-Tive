@@ -59,7 +59,7 @@ const authUser = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    res.json({ id: user._id, pic: user.pic, email: user.email, token: token });
+    res.json({ id: user._id, name:user.name, pic: user.pic, email: user.email, token: token });
 
   } catch (error) {
     console.error(error);

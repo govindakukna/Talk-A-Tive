@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
+dotenv.config();
 const db = require("./config/db");
 const bodyParser = require('body-parser');
 const userRoutes = require("./routes/userRoutes");
@@ -14,7 +15,6 @@ app.use(cors());
 
 const chats = require("./data");
 
-dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 

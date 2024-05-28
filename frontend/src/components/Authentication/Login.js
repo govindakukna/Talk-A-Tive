@@ -59,6 +59,11 @@ const submitHandler = async() => {
             config
           );
 
+         console.log(data);
+         console.log("data after fetching")
+          
+        
+
           toast({
             title: "Login Successfully",
             status: "success",
@@ -78,7 +83,7 @@ const submitHandler = async() => {
 
     }catch(error){
           toast({
-            title: "Error Occured!",
+            title: "Invalid Email or Password",
             description: error.response.data.message,
             status: "error",
             duration: 5000,

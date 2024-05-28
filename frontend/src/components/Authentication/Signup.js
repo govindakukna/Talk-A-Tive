@@ -27,7 +27,7 @@ const handleClick = ()=> setShow(!show);
 const postDetails = (pics)=>{ 
    setPicLoading(true);
 
-   if(pics==undefined){
+   if(pics===undefined){
       toast({
         title: "Please Select an Image!",
         

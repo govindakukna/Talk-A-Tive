@@ -34,6 +34,7 @@ const registerUser = async (req, res) => {
     if (!token) {
       return res.status(400).json({ error: "Token not created" });
     }
+ //   const final_response = await response.select("-password");
 
     // Send response with user data and token
     res.status(200).json({ response, token });
@@ -71,6 +72,7 @@ const authUser = async (req, res) => {
 // write using query
   
 const allUsers = async(req,res)=>{
+  console.log(req.query);
 
   const keyword = req.query.search ? {
     $or :[
@@ -81,6 +83,7 @@ const allUsers = async(req,res)=>{
   :{};
 
   console.log(keyword);
+  if(!keyword) res.send({message:"user not exist"});
 
   const users = await User.find(keyword).find({_id: { $ne: req.user._id}});
  // console.log(users);

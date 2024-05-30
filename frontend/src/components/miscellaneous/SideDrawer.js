@@ -1,4 +1,4 @@
-import React from "react";
+import {React,useEffect} from "react";
 import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
@@ -18,7 +18,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
 import { ChatState } from "../../Context/ChatProvider";
 import ProfileModal from "./ProfileModal";
-import { useDisclosure } from "@chakra-ui/react";
+import { Spinner, useDisclosure } from "@chakra-ui/react";
 import {
   Drawer,
   DrawerBody,
@@ -40,10 +40,23 @@ export const SideDrawer = () => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
 
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const { user,setUser, setSelectedChat, chats, setChats } = ChatState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   const toast =  useToast();
+  console.log(user);
+
+   useEffect(() => {
+     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+     console.log(userInfo);
+     console.log("data in context provider");
+     setUser(userInfo);
+
+     if (!userInfo) {
+       history.push("/");
+     }
+   }, []);
+
 
   const logouthandler = () => {
     localStorage.removeItem("userInfo");
@@ -75,8 +88,8 @@ export const SideDrawer = () => {
 
         },
       };
-
-      const {data} = await axios.get(`/api/user?serch=${search}`,config)
+      console.log(search);
+      const {data} = await axios.get(`/api/user?search=${search}`,config)
      setLoading(false);
      setSearchResult(data);
 
@@ -92,6 +105,14 @@ export const SideDrawer = () => {
     }
 
   };
+  
+  useEffect(()=>{
+    async function get(){
+      await handleSearch();
+    }
+    if(search!=="") get()
+    
+  },[search])
 
   const accessChat = async(userId)=>{
     try{
@@ -108,6 +129,8 @@ export const SideDrawer = () => {
             { userId },
             config
           );
+
+        //  if(!chats.find((c)=>c._id=== data._id)) setChats([data,...chats]);
 
          setSelectedChat(data);
          setLoadingChat(false);
@@ -166,11 +189,12 @@ export const SideDrawer = () => {
               <Avatar
                 size="sm"
                 cursor="pointer"
-                name={user.name}
-                src={user.pic}
+                name={user?.name}
+                src={user?.pic}
               />
             </MenuButton>
             <MenuList>
+              
               <ProfileModal user={user}>
                 <MenuItem>My Profile</MenuItem>
               </ProfileModal>
@@ -204,9 +228,9 @@ export const SideDrawer = () => {
             ):(
               searchResult?.map(user => (
                 <UserListItem
-                 key = {user._id}
+                 key = {user?._id}
                  user = {user}
-                 handleFunction = {()=>accessChat(user._id)}
+                 handleFunction = {()=>accessChat(user?._id)}
                  />
                 
                
@@ -215,7 +239,7 @@ export const SideDrawer = () => {
               
 
             }
-
+   {loadingChat &&  <Spinner ml = "auto" display= "flex" />}
 
           </DrawerBody>
         </DrawerContent>

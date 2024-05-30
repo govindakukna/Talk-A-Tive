@@ -121,7 +121,7 @@ const submitHandler = async ()=>{
          });
        // set data to local storage
          localStorage.setItem("userInfo", JSON.stringify(data));
-       
+    //   console.log(data);
          setPicLoading(false);
          // it will add data to history and will render route at url /chats
          history.push('/chats')

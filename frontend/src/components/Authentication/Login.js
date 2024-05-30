@@ -75,7 +75,8 @@ const submitHandler = async() => {
         //   setUser(data);
           // set data to local storage
           localStorage.setItem("userInfo", JSON.stringify(data));
-
+          const d=localStorage.getItem("userInfo")
+          console.log("item saved: ",d);
           setLoading(false);
           // it will add data to history and will render route at url /chats
           history.push("/chats");

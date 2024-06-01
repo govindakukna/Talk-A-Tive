@@ -7,20 +7,15 @@ import Signup from "../components/Authentication/Signup";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Homepage = () => {
+  const history = useHistory();
 
- const history = useHistory();
- useEffect(() => {
-   const user = JSON.parse(localStorage.getItem("userInfo"));
-   
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
 
-   if (user) {
-     history.push("/chats");
-   }
- }, [history]);
-
-
-
-
+    if (user) {
+      history.push("/chats");
+    }
+  }, [history]);
 
   return (
     <Container maxW="xl" centerContent>
@@ -45,8 +40,8 @@ const Homepage = () => {
             <Tab width="50%">Sign Up</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>{<Login/>} </TabPanel>
-            <TabPanel>{<Signup/>}</TabPanel>
+            <TabPanel>{<Login />} </TabPanel>
+            <TabPanel>{<Signup />}</TabPanel>
           </TabPanels>
         </Tabs>
       </Box>

@@ -7,6 +7,7 @@ const db = require("./config/db");
 const bodyParser = require('body-parser');
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleWare/errorMiddleware");
 
 
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat",chatRoutes);
+app.use("/api/message", messageRoutes);
 
 // use to handle errors 
 app.use(notFound);

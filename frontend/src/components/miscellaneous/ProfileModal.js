@@ -16,7 +16,7 @@ import { Text } from '@chakra-ui/react';
 
 const ProfileModal = ({user,children}) => {
  const { isOpen, onOpen, onClose } = useDisclosure();
-   console.log(user);
+  // console.log(user);
  return (
    <>
      {children ? (
@@ -34,7 +34,7 @@ const ProfileModal = ({user,children}) => {
          <ModalHeader
            fontSize="40px"
            fontFamily="Work sans"
-           d="flex"
+           display="flex"
            justifyContent="center"
          >
            {user?.name}
@@ -42,7 +42,7 @@ const ProfileModal = ({user,children}) => {
 
          <ModalCloseButton />
          <ModalBody
-           d="flex"
+           display="flex"
            flexDir="column"
            alignItems="center"
            justifyContent="space-between"

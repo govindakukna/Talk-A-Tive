@@ -5,6 +5,7 @@ const User = require("../Models/userModel");
 
 const accessChat = async (req, res) => {
   const { userId } = req.body;
+  console.log("dfkjbsduv  ",userId)
 
   if (!userId) {
     return res
@@ -24,18 +25,22 @@ const accessChat = async (req, res) => {
       .populate("users", "-password")
       .populate("latestMessage");
 
+    
+
     // Populate sender information for the latest message
     isChat = await User.populate(isChat, {
       path: "latestMessage.sender",
       select: "name pic email",
     });
-
+     console.log("userId  ", userId);
+     console.log(isChat);
     if (isChat.length > 0) {
       return res.status(200).json(isChat[0]);
     } else {
       // If chat doesn't exist, create a new chat
+      console.log("userId  ",userId);
       const chatData = {
-        chatName: "sender",
+        chatName: userId,
         isGroupChat: false,
         users: [req.user._id, userId],
       };

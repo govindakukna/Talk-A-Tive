@@ -84,7 +84,7 @@ export const SideDrawer = () => {
       const config = {
 
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user?.token}`,
 
         },
       };
@@ -114,23 +114,27 @@ export const SideDrawer = () => {
     
   },[search])
 
+
   const accessChat = async(userId)=>{
+   console.log("user cheki",userId)
     try{
          setLoadingChat(true);
           const config = {
             headers: {
               "Content-type": "application/json",
-              Authorization: `Bearer ${user.token}`,
+              Authorization: `Bearer ${user?.token}`,
             },
           };
 
           const { data } = await axios.post(
-            "/api/chat",
+            "/api/chat/",
             { userId },
             config
           );
+      console.log("chat data");
+      console.log(data);
 
-        //  if(!chats.find((c)=>c._id=== data._id)) setChats([data,...chats]);
+          if(!chats.find((c)=>c._id=== data._id)) setChats([data,...chats]);
 
          setSelectedChat(data);
          setLoadingChat(false);
@@ -217,7 +221,7 @@ export const SideDrawer = () => {
                 placeholder="Search by name or email"
                 mr={2}
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target?.value)}
               />
               <Button onClick={handleSearch}>Go</Button>
             </Box>
@@ -226,7 +230,7 @@ export const SideDrawer = () => {
               loading ?(
               <ChatLoading/>
             ):(
-              searchResult?.map(user => (
+              searchResult?.map((user) => (
                 <UserListItem
                  key = {user?._id}
                  user = {user}

@@ -21,7 +21,7 @@ import axios from "axios";
 import { Spinner } from "@chakra-ui/react";
 import UserListItem from "../UserAvatar/UserListItem";
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -74,7 +74,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
       removableuserid === user.id ? setSelectedChat() : setSelectedChat(data);
 
       setFetchAgain(!fetchAgain);
-      // fetchMessages();
+       fetchMessages();
       setLoading(false);
     } catch (error) {
       toast({

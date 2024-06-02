@@ -15,6 +15,8 @@ const accessChat = async (req, res) => {
 
   try {
     // Check if a chat exists between the current user and the provided userId
+   
+
     let isChat = await Chat.find({
       isGroupChat: false,
       $and: [
@@ -63,12 +65,14 @@ const accessChat = async (req, res) => {
 // to find all chats of loged in user
 const fetchChats = async (req, res) => {
   try {
+   //  console.log("user in fetchchat", req.user);
     Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
       .sort({ updatedAt: -1 })
       .then(async (results) => {
+
         results = await User.populate(results, {
           path: "latestMessage.sender",
           select: "name pic email",

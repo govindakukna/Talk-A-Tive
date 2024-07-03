@@ -1,28 +1,20 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Route, useHistory } from "react-router-dom/cjs/react-router-dom";
 import Homepage from "../pages/Homepage";
-const ChatContext = createContext();
+export const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("userInfo")));
   const [selectedChat, setSelectedChat] = useState();
   const [chats, setChats] = useState([]);
   const [notification, setNotification] = useState([]);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-
-    console.log(userInfo);
-    console.log("data in context provider");
     setUser(userInfo);
-
-    if (!userInfo) {
-      //  history.push("/");
-      window.location.href = "/";
-    }
-  }, [history]);
+  }, []);
 
   return (
     <ChatContext.Provider

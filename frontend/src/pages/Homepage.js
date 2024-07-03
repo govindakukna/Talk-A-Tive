@@ -9,13 +9,13 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const Homepage = () => {
   const history = useHistory();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userInfo"));
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (user) {
-      history.push("/chats");
-    }
-  }, [history]);
+  //   if (user) {
+  //     history.push("/chats");
+  //   }
+  // }, [history]);
 
   return (
     <Container maxW="xl" centerContent>

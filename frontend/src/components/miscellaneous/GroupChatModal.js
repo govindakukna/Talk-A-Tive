@@ -102,6 +102,8 @@ export const GroupChatModal = ({children}) => {
       );
 
       setChats([data, ...chats]);
+      setSelectedUsers([]);
+      setSearchResult([]);
       onClose();
 
       toast({

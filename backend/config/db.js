@@ -4,8 +4,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const MONGO_DB_URL = process.env.MONGO_URI;
-//console.log(typeof MONGO_DB_URL);
-mongoose.connect(MONGO_DB_URL);
+console.log(MONGO_DB_URL);
+mongoose.connect(String(MONGO_DB_URL));
 
 const db = mongoose.connection; // Removed unnecessary parentheses
 

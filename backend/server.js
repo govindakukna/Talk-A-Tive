@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, ".env") });
 const db = require("./config/db");
 const bodyParser = require('body-parser');
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleWare/errorMiddleware");
-
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -19,14 +19,26 @@ const chats = require("./data");
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("API is running Succesfully");
-});
+
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat",chatRoutes);
 app.use("/api/message", messageRoutes);
+// -------------------------DEPLOYMENT----------------
+const __dirname1 = path.resolve();
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "/frontend/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running....");
+  });
+}
+//---------------------DEPLOYMENT----------------
 // use to handle errors 
 app.use(notFound);
 app.use(errorHandler);
